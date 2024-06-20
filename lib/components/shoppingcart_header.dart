@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shoppingcart/constants.dart';
 
 class ShoppingCartHeader extends StatefulWidget {
-  const ShoppingCartHeader({Key? key}) : super(key: key);
+  const ShoppingCartHeader({super.key});
 
   @override
   State<ShoppingCartHeader> createState() => _ShoppingCartHeaderState();

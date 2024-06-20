@@ -8,12 +8,11 @@ class ProductSelectorButton extends StatelessWidget {
   final Function changeIcon;
 
   const ProductSelectorButton(
-      {Key? key,
+      {super.key,
       required this.id,
       required this.selectedIconNum,
       required this.mIcon,
-      required this.changeIcon})
-      : super(key: key);
+      required this.changeIcon});
 
   @override
   Widget build(BuildContext context) {
