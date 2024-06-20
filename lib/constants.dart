@@ -17,4 +17,4 @@ const kPrimaryColor = MaterialColor(
 );
 
 const kSecondaryColor = Color.fromARGB(255, 255, 255, 255); // 기본 버튼 색
-const kAccentColor = Color.fromARGB(255, 137, 74, 166); // 활성화 버튼 색
+const kAccentColor = Color.fromARGB(255, 103, 8, 150); // 활성화 버튼 색

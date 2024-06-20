@@ -1,10 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shoppingcart/constants.dart';
+import 'package:flutter_shoppingcart/components/shoppingcart_header.dart';
 
-class ShoppingCartDetail extends StatelessWidget {
+class ShoppingCartDetail extends StatefulWidget {
   const ShoppingCartDetail({super.key});
 
+  @override
+  _ShoppingCartDetailState createState() => _ShoppingCartDetailState();
+}
+
+class _ShoppingCartDetailState extends State<ShoppingCartDetail> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,7 +25,6 @@ class ShoppingCartDetail extends StatelessWidget {
           children: [
             _buildDetailNameAndPrice(),
             _buildDetailRatingAndReviewCount(),
-            _buildDetailColorOptions(),
             _buildDetailButton(context),
           ],
         ),
@@ -31,11 +36,10 @@ class ShoppingCartDetail extends StatelessWidget {
     return const Padding(
       padding: EdgeInsets.only(bottom: 10),
       child: Row(
-        // 1. spaceBetween 이 적용되면 양 끝으로 벌어진다.
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "Polaroid Love - 마이해픈",
+            "Polaroid Love",
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -51,82 +55,21 @@ class ShoppingCartDetail extends StatelessWidget {
       padding: EdgeInsets.only(bottom: 20),
       child: Row(
         children: [
-        Icon(Icons.favorite, color: Colors.red), // 하트 아이콘으로 변경
-        Icon(Icons.favorite, color: Colors.red),
-        Icon(Icons.favorite, color: Colors.red),
-        Icon(Icons.favorite, color: Colors.red),
-        Icon(Icons.favorite, color: Colors.red),
-          // 2. Spacer()로 Icon위젯과 Text위젯을 양끝으로 벌릴 수 있다. spaceBetween과 동일
+          Text("마이해픈 "),
+
           Spacer(),
-          Text("댓글 "),
+          Icon(Icons.favorite, color: Colors.red),
           Text("(999)", style: TextStyle(color: Colors.blue)),
         ],
       ),
     );
   }
 
-  Widget _buildDetailColorOptions() {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text("Color Options"),
-          const SizedBox(height: 10),
-          Row(
-            children: [
-              // 3. 동일한 색상 아이콘을 재사용하기 위해 함수로 관리
-              _buildDetailIcon(Colors.black),
-              _buildDetailIcon(Colors.green),
-              _buildDetailIcon(Colors.orange),
-              _buildDetailIcon(Colors.grey),
-              _buildDetailIcon(Colors.white),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  // 4. 다른 화면에서도 재사용하면 공통 컴포넌트 위젯으로 관리하는 것이 좋다.
-  Widget _buildDetailIcon(Color mColor) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 10),
-      // 5. Stack의 첫 번째 Container 위젯위에 Positioned 위젯이 올라가는 형태
-      child: Stack(
-        children: [
-          Container(
-            width: 50,
-            height: 50,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(),
-              shape: BoxShape.circle,
-            ),
-          ),
-          Positioned(
-            left: 5,
-            top: 5,
-            child: ClipOval(
-              child: Container(
-                color: mColor,
-                width: 40,
-                height: 40,
-              ),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
-  // 6. 다른 화면에서도 재사용하려면 함수가 아닌 공통 컴포넌트 위젯으로 관리하는 것이 좋다.
   Widget _buildDetailButton(BuildContext context) {
     return Align(
       child: TextButton(
         onPressed: () {
           showCupertinoDialog(
-            // 1. 추가
             context: context,
             builder: (context) => CupertinoAlertDialog(
               title: const Text("다음 음악으로 넘길까요?"),
@@ -134,10 +77,21 @@ class ShoppingCartDetail extends StatelessWidget {
                 CupertinoDialogAction(
                   onPressed: () {
                     Navigator.pop(context);
+                    final headerState = context.findAncestorStateOfType<ShoppingCartHeaderState>();
+                    headerState?.changeImage(1);
                   },
                   child: const Text(
                     "확인",
                     style: TextStyle(color: Colors.blue),
+                  ),
+                ),
+                CupertinoDialogAction(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text(
+                    "취소",
+                    style: TextStyle(color: Colors.red),
                   ),
                 ),
               ],
@@ -153,9 +107,7 @@ class ShoppingCartDetail extends StatelessWidget {
         ),
         child: const Text(
           "다음",
-          style: TextStyle(color: Colors.white,
-            fontSize: 18
-            ),
+          style: TextStyle(color: Colors.white, fontSize: 18),
         ),
       ),
     );

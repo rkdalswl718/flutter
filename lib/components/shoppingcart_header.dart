@@ -1,15 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shoppingcart/constants.dart';
 
 class ShoppingCartHeader extends StatefulWidget {
-  const ShoppingCartHeader({Key? key}) : super(key: key);
+  const ShoppingCartHeader({super.key});
 
   @override
-  State<ShoppingCartHeader> createState() => _ShoppingCartHeaderState();
+  State<ShoppingCartHeader> createState() => ShoppingCartHeaderState();
 }
 
-class _ShoppingCartHeaderState extends State<ShoppingCartHeader> {
+class ShoppingCartHeaderState extends State<ShoppingCartHeader> {
   int selectedId = 0;
 
   List<String> albumArtworks = [
@@ -18,6 +17,15 @@ class _ShoppingCartHeaderState extends State<ShoppingCartHeader> {
     "assets/p3.jpeg",
     "assets/p4.jpeg",
   ];
+
+  void changeImage(int change) {
+    setState(() {
+      selectedId = (selectedId + change) % albumArtworks.length;
+      if (selectedId < 0) {
+        selectedId = albumArtworks.length - 1;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,26 +59,17 @@ class _ShoppingCartHeaderState extends State<ShoppingCartHeader> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           _buildControlButton(Icons.skip_previous, onTap: () {
-            _changeSelectedId(-1); // 이전 앨범 아트워크
+            changeImage(-1); // 이전 앨범 아트워크
           }),
           _buildControlButton(Icons.play_arrow, size: 50.0, onTap: () {
             // Handle play button tap
           }),
           _buildControlButton(Icons.skip_next, onTap: () {
-            _changeSelectedId(1); // 다음 앨범 아트워크
+            changeImage(1); // 다음 앨범 아트워크
           }),
         ],
       ),
     );
-  }
-
-  void _changeSelectedId(int change) {
-    setState(() {
-      selectedId = (selectedId + change) % albumArtworks.length;
-      if (selectedId < 0) {
-        selectedId = albumArtworks.length - 1;
-      }
-    });
   }
 
   Widget _buildControlButton(IconData iconData, {double size = 40.0, VoidCallback? onTap}) {
