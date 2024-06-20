@@ -35,19 +35,12 @@ class ShoppingCartDetail extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "Urban Soft AL 10.0",
+            "Polaroid Love - 마이해픈",
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
           ),
-          Text(
-            "\$699",
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          )
         ],
       ),
     );
@@ -58,15 +51,15 @@ class ShoppingCartDetail extends StatelessWidget {
       padding: EdgeInsets.only(bottom: 20),
       child: Row(
         children: [
-          Icon(Icons.star, color: Colors.yellow),
-          Icon(Icons.star, color: Colors.yellow),
-          Icon(Icons.star, color: Colors.yellow),
-          Icon(Icons.star, color: Colors.yellow),
-          Icon(Icons.star, color: Colors.yellow),
+        Icon(Icons.favorite, color: Colors.red), // 하트 아이콘으로 변경
+        Icon(Icons.favorite, color: Colors.red),
+        Icon(Icons.favorite, color: Colors.red),
+        Icon(Icons.favorite, color: Colors.red),
+        Icon(Icons.favorite, color: Colors.red),
           // 2. Spacer()로 Icon위젯과 Text위젯을 양끝으로 벌릴 수 있다. spaceBetween과 동일
           Spacer(),
-          Text("review "),
-          Text("(26)", style: TextStyle(color: Colors.blue)),
+          Text("댓글 "),
+          Text("(999)", style: TextStyle(color: Colors.blue)),
         ],
       ),
     );
@@ -136,7 +129,7 @@ class ShoppingCartDetail extends StatelessWidget {
             // 1. 추가
             context: context,
             builder: (context) => CupertinoAlertDialog(
-              title: const Text("장바구니에 담으시겠습니까?"),
+              title: const Text("다음 음악으로 넘길까요?"),
               actions: [
                 CupertinoDialogAction(
                   onPressed: () {

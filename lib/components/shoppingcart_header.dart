@@ -29,18 +29,21 @@ class _ShoppingCartHeaderState extends State<ShoppingCartHeader> {
     );
   }
 
-  Widget _buildHeaderPic() {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: AspectRatio(
-        aspectRatio: 5 / 3,
-        child: Image.asset(
-          selectedPic[selectedId],
-          fit: BoxFit.cover,
-        ),
+Widget _buildHeaderPic() {
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: ClipRRect(
+      borderRadius: BorderRadius.circular(20.0),
+      child: Image.asset(
+        selectedPic[selectedId],
+        fit: BoxFit.cover,
+        width: 300, // 원하는 너비
+        height: 300, // 원하는 높이
       ),
-    );
-  }
+    ),
+  );
+}
+
 
   Widget _buildHeaderSelector() {
     return Padding(
@@ -51,13 +54,11 @@ class _ShoppingCartHeaderState extends State<ShoppingCartHeader> {
           _buildHeaderSelectorButton(0, Icons.directions_bike),
           _buildHeaderSelectorButton(1, Icons.motorcycle),
           _buildHeaderSelectorButton(2, CupertinoIcons.car_detailed),
-          _buildHeaderSelectorButton(3, CupertinoIcons.airplane),
         ],
       ),
     );
   }
 
-  // 1. 다른 화면에서도 재사용하면 공통 컴포넌트 위젯으로 관리하는 것이 좋다.
   Widget _buildHeaderSelectorButton(int id, IconData mIcon) {
     return Container(
       width: 70,
