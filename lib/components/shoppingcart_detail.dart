@@ -30,7 +30,7 @@ class ShoppingCartDetail extends StatelessWidget {
   Widget _buildDetailNameAndPrice() {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
-      child: const Row(
+      child: Row(
         // 1. spaceBetween 이 적용되면 양 끝으로 벌어진다.
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

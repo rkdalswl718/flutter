@@ -2,17 +2,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shoppingcart/constants.dart';
 
-class ShoppingcartHeader extends StatefulWidget {
-  const ShoppingcartHeader({Key? key}) : super(key: key);
+class ShoppingCartHeader extends StatefulWidget {
+  const ShoppingCartHeader({Key? key}) : super(key: key);
 
   @override
-  State<ShoppingcartHeader> createState() => _ShoppingCartHeaderState();
+  State<ShoppingCartHeader> createState() => _ShoppingCartHeaderState();
 }
 
-class _ShoppingCartHeaderState extends State<ShoppingcartHeader> {
+class _ShoppingCartHeaderState extends State<ShoppingCartHeader> {
   int selectedId = 0;
 
   List<String> selectedPic = [
+    "assets/p1.jpeg",
+    "assets/p2.jpeg",
+    "assets/p3.jpeg",
+    "assets/p4.jpeg",
   ];
 
   @override
