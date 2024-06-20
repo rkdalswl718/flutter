@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shoppingcart/constants.dart';
 
 class ShoppingCartHeader extends StatefulWidget {
-  const ShoppingCartHeader({super.key});
+  const ShoppingCartHeader({Key? key}) : super(key: key);
 
   @override
   State<ShoppingCartHeader> createState() => _ShoppingCartHeaderState();
@@ -12,7 +12,7 @@ class ShoppingCartHeader extends StatefulWidget {
 class _ShoppingCartHeaderState extends State<ShoppingCartHeader> {
   int selectedId = 0;
 
-  List<String> selectedPic = [
+  List<String> albumArtworks = [
     "assets/p1.jpeg",
     "assets/p2.jpeg",
     "assets/p3.jpeg",
@@ -23,57 +23,78 @@ class _ShoppingCartHeaderState extends State<ShoppingCartHeader> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        _buildHeaderPic(),
-        _buildHeaderSelector(),
+        _buildAlbumArtwork(),
+        _buildPlayerControls(),
       ],
     );
   }
 
-Widget _buildHeaderPic() {
-  return Padding(
-    padding: const EdgeInsets.all(16.0),
-    child: ClipRRect(
-      borderRadius: BorderRadius.circular(20.0),
-      child: Image.asset(
-        selectedPic[selectedId],
-        fit: BoxFit.cover,
-        width: 300, // 원하는 너비
-        height: 300, // 원하는 높이
-      ),
-    ),
-  );
-}
-
-
-  Widget _buildHeaderSelector() {
+  Widget _buildAlbumArtwork() {
     return Padding(
-      padding: const EdgeInsets.only(left: 30, right: 30, top: 10, bottom: 30),
+      padding: const EdgeInsets.all(16.0),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20.0),
+        child: Image.asset(
+          albumArtworks[selectedId],
+          fit: BoxFit.cover,
+          width: 300, // Adjust as needed
+          height: 300, // Adjust as needed
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPlayerControls() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _buildHeaderSelectorButton(0, Icons.directions_bike),
-          _buildHeaderSelectorButton(1, Icons.motorcycle),
-          _buildHeaderSelectorButton(2, CupertinoIcons.car_detailed),
+          _buildControlButton(Icons.skip_previous, onTap: () {
+            _changeSelectedId(-1); // 이전 앨범 아트워크
+          }),
+          _buildControlButton(Icons.play_arrow, size: 50.0, onTap: () {
+            // Handle play button tap
+          }),
+          _buildControlButton(Icons.skip_next, onTap: () {
+            _changeSelectedId(1); // 다음 앨범 아트워크
+          }),
         ],
       ),
     );
   }
 
-  Widget _buildHeaderSelectorButton(int id, IconData mIcon) {
-    return Container(
-      width: 70,
-      height: 70,
-      decoration: BoxDecoration(
-        color: id == selectedId ? kAccentColor : kSecondaryColor,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: IconButton(
-        icon: Icon(mIcon, color: Colors.black),
-        onPressed: () {
-          setState(() {
-            selectedId = id;
-          });
-        },
+  void _changeSelectedId(int change) {
+    setState(() {
+      selectedId = (selectedId + change) % albumArtworks.length;
+      if (selectedId < 0) {
+        selectedId = albumArtworks.length - 1;
+      }
+    });
+  }
+
+  Widget _buildControlButton(IconData iconData, {double size = 40.0, VoidCallback? onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: size,
+        height: size,
+        decoration: BoxDecoration(
+          color: kAccentColor,
+          shape: BoxShape.circle,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.3),
+              blurRadius: 4,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Icon(
+          iconData,
+          color: Colors.white,
+          size: size * 0.6,
+        ),
       ),
     );
   }

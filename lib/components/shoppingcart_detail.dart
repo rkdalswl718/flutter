@@ -146,14 +146,16 @@ class ShoppingCartDetail extends StatelessWidget {
         },
         style: TextButton.styleFrom(
           backgroundColor: kAccentColor,
-          minimumSize: const Size(300, 50),
+          minimumSize: const Size(320, 60),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
         ),
         child: const Text(
-          "Add to Cart",
-          style: TextStyle(color: Colors.white),
+          "다음",
+          style: TextStyle(color: Colors.white,
+            fontSize: 18
+            ),
         ),
       ),
     );
