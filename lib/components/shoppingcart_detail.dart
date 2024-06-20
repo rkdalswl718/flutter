@@ -41,7 +41,7 @@ class _ShoppingCartDetailState extends State<ShoppingCartDetail> {
           Text(
             "Polaroid Love",
             style: TextStyle(
-              fontSize: 18,
+              fontSize: 24,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -55,8 +55,7 @@ class _ShoppingCartDetailState extends State<ShoppingCartDetail> {
       padding: EdgeInsets.only(bottom: 20),
       child: Row(
         children: [
-          Text("마이해픈 "),
-
+          Text("마이해픈", style: TextStyle(fontSize: 16, color: Colors.grey)),
           Spacer(),
           Icon(Icons.favorite, color: Colors.red),
           Text("(999)", style: TextStyle(color: Colors.blue)),
@@ -107,7 +106,7 @@ class _ShoppingCartDetailState extends State<ShoppingCartDetail> {
         ),
         child: const Text(
           "다음",
-          style: TextStyle(color: Colors.white, fontSize: 18),
+          style: TextStyle(color: Colors.white, fontSize: 17),
         ),
       ),
     );
