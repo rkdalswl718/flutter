@@ -28,7 +28,7 @@ class ShoppingCartPage extends StatelessWidget {
       appBar: _buildShoppingCartAppBar(),
       body: Column(
         children: [
-          WeatherHeader(),
+          ShoppingcartHeader(),
           Expanded(child: ShoppingCartDetail()),
         ],
       ),
