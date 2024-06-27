@@ -10,6 +10,7 @@ class ShoppingCartHeader extends StatefulWidget {
 
 class ShoppingCartHeaderState extends State<ShoppingCartHeader> {
   int selectedId = 0;
+  bool isPlaying = false;
 
   List<String> albumArtworks = [
     "assets/p1.jpeg",
@@ -24,6 +25,12 @@ class ShoppingCartHeaderState extends State<ShoppingCartHeader> {
       if (selectedId < 0) {
         selectedId = albumArtworks.length - 1;
       }
+    });
+  }
+
+  void togglePlayPause() {
+    setState(() {
+      isPlaying = !isPlaying;
     });
   }
 
@@ -42,11 +49,21 @@ class ShoppingCartHeaderState extends State<ShoppingCartHeader> {
       padding: const EdgeInsets.all(16.0),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20.0),
-        child: Image.asset(
-          albumArtworks[selectedId],
-          fit: BoxFit.cover,
-          width: 300, // Adjust as needed
-          height: 300, // Adjust as needed
+        child: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 300),
+          child: Image.asset(
+            albumArtworks[selectedId],
+            key: ValueKey<int>(selectedId),
+            fit: BoxFit.cover,
+            width: 300, // Adjust as needed
+            height: 300, // Adjust as needed
+            errorBuilder: (context, error, stackTrace) {
+              return Container(
+                color: Colors.grey,
+                child: const Icon(Icons.error, color: Colors.white, size: 50),
+              );
+            },
+          ),
         ),
       ),
     );
@@ -61,9 +78,11 @@ class ShoppingCartHeaderState extends State<ShoppingCartHeader> {
           _buildControlButton(Icons.skip_previous, onTap: () {
             changeImage(-1); // 이전 앨범 아트워크
           }),
-          _buildControlButton(Icons.play_arrow, size: 50.0, onTap: () {
-            // Handle play button tap
-          }),
+          _buildControlButton(
+            isPlaying ? Icons.pause : Icons.play_arrow,
+            size: 50.0,
+            onTap: togglePlayPause,
+          ),
           _buildControlButton(Icons.skip_next, onTap: () {
             changeImage(1); // 다음 앨범 아트워크
           }),

@@ -33,16 +33,32 @@ class _ShoppingCartDetailState extends State<ShoppingCartDetail> {
   }
 
   Widget _buildDetailNameAndPrice() {
-    return const Padding(
-      padding: EdgeInsets.only(bottom: 10),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            "Polaroid Love",
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
+          AnimatedSwitcher(
+            duration: const Duration(milliseconds: 300),
+            child: Text(
+              "Polaroid Love",
+              key: ValueKey<String>("Polaroid Love"),
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          AnimatedSwitcher(
+            duration: const Duration(milliseconds: 300),
+            child: Text(
+              "\$19.99",
+              key: ValueKey<String>("\$19.99"),
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.green,
+              ),
             ),
           ),
         ],
@@ -51,14 +67,22 @@ class _ShoppingCartDetailState extends State<ShoppingCartDetail> {
   }
 
   Widget _buildDetailRatingAndReviewCount() {
-    return const Padding(
-      padding: EdgeInsets.only(bottom: 20),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20),
       child: Row(
         children: [
-          Text("마이해픈", style: TextStyle(fontSize: 16, color: Colors.grey)),
-          Spacer(),
-          Icon(Icons.favorite, color: Colors.red),
-          Text("(999)", style: TextStyle(color: Colors.blue)),
+          const Text("마이해픈", style: TextStyle(fontSize: 16, color: Colors.grey)),
+          const Spacer(),
+          const Icon(Icons.favorite, color: Colors.red),
+          const SizedBox(width: 5),
+          AnimatedSwitcher(
+            duration: const Duration(milliseconds: 300),
+            child: Text(
+              "(999)",
+              key: ValueKey<String>("(999)"),
+              style: const TextStyle(color: Colors.blue),
+            ),
+          ),
         ],
       ),
     );
