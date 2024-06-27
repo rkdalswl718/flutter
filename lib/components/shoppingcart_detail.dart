@@ -11,6 +11,25 @@ class ShoppingCartDetail extends StatefulWidget {
 }
 
 class _ShoppingCartDetailState extends State<ShoppingCartDetail> {
+  int likes = 999;
+  bool isLiked = false;
+
+  void toggleLike() {
+    setState(() {
+      if (isLiked) {
+        likes--;
+      } else {
+        likes++;
+      }
+      isLiked = !isLiked;
+    });
+  }
+
+  void changeImage() {
+    final headerState = context.findAncestorStateOfType<ShoppingCartHeaderState>();
+    headerState?.changeImage(1);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,32 +52,16 @@ class _ShoppingCartDetailState extends State<ShoppingCartDetail> {
   }
 
   Widget _buildDetailNameAndPrice() {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
+    return const Padding(
+      padding: EdgeInsets.only(bottom: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          AnimatedSwitcher(
-            duration: const Duration(milliseconds: 300),
-            child: Text(
-              "Polaroid Love",
-              key: ValueKey<String>("Polaroid Love"),
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          AnimatedSwitcher(
-            duration: const Duration(milliseconds: 300),
-            child: Text(
-              "\$19.99",
-              key: ValueKey<String>("\$19.99"),
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.green,
-              ),
+          Text(
+            "Polaroid Love",
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ],
@@ -73,15 +76,17 @@ class _ShoppingCartDetailState extends State<ShoppingCartDetail> {
         children: [
           const Text("마이해픈", style: TextStyle(fontSize: 16, color: Colors.grey)),
           const Spacer(),
-          const Icon(Icons.favorite, color: Colors.red),
-          const SizedBox(width: 5),
-          AnimatedSwitcher(
-            duration: const Duration(milliseconds: 300),
-            child: Text(
-              "(999)",
-              key: ValueKey<String>("(999)"),
-              style: const TextStyle(color: Colors.blue),
+          GestureDetector(
+            onTap: toggleLike,
+            child: Icon(
+              Icons.favorite,
+              color: isLiked ? Colors.red : Colors.grey,
             ),
+          ),
+          const SizedBox(width: 5),
+          Text(
+            "($likes)",
+            style: const TextStyle(color: Colors.blue),
           ),
         ],
       ),
@@ -100,8 +105,7 @@ class _ShoppingCartDetailState extends State<ShoppingCartDetail> {
                 CupertinoDialogAction(
                   onPressed: () {
                     Navigator.pop(context);
-                    final headerState = context.findAncestorStateOfType<ShoppingCartHeaderState>();
-                    headerState?.changeImage(1);
+                    changeImage(); // 이미지 변경 함수 호출
                   },
                   child: const Text(
                     "확인",
